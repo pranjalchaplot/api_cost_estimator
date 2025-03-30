@@ -1,159 +1,365 @@
-/* Basic Reset & Font */
+/* Basic Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Body Styling - Reduced Size, Base Font */
 body {
-  font-family: "Inter", sans-serif;
-  background: linear-gradient(
-    135deg,
-    #667eea 0%,
-    #764ba2 100%
-  ); /* Example gradient */
-  color: #e0e0e0; /* Light text color for contrast */
-  width: 350px; /* Typical popup width */
-  padding: 15px;
-  overflow: hidden; /* Prevent scrollbars if content fits */
+  width: 460px; /* Reduced width slightly */
+  padding: 20px; /* Adjusted padding */
+  font-family: "Inter", system-ui, sans-serif; /* Keep Inter */
+  font-size: 15px; /* DECREASED base font size */
+  background-color: #050505;
+  color: #e0e0e0; /* Slightly dimmer default text */
+  position: relative;
+  overflow: hidden;
+  line-height: 1.55; /* Adjusted line height */
 }
 
-h1,
-h2 {
-  text-align: center;
-  margin-bottom: 15px;
-  font-weight: 600;
-  color: #fff;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+/* Main container */
+.calculator-container {
+  position: relative;
+  z-index: 1;
 }
 
-h2 {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  font-weight: 500;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding-bottom: 5px;
-}
-
-/* Glassmorphism Card Style */
-.glass-card {
-  background: rgba(255, 255, 255, 0.1); /* Frosted glass effect */
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%); /* For Safari */
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Input Sections */
-.input-section,
-.project-size-section {
+/* Header Bar Layout */
+.header-bar {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.input-group,
-.radio-group {
+/* === Font Application (Reduced Sizes) === */
+h1 {
+  font-family: "Inter", sans-serif;
+  text-align: left;
+  margin-bottom: 0;
+  font-size: 1.6em; /* Further reduced size */
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+  flex-grow: 1;
+}
+
+h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.1em; /* Further reduced size */
+  margin-bottom: 15px; /* Reduced space */
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f0f0f0;
+}
+
+label,
+button,
+select,
+input,
+.selected-scope-display,
+.cost-detail,
+.slider-labels span,
+.status-message {
+  font-family: "Inter", sans-serif;
+  font-size: 0.95em; /* Adjust relative size */
+}
+
+/* Glass Card Styling */
+.glass-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(16px) saturate(115%);
+  -webkit-backdrop-filter: blur(16px) saturate(115%);
+  border-radius: 14px; /* Slightly smaller radius */
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 18px 22px; /* Reduced padding */
+  margin-bottom: 18px; /* Reduced spacing */
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+.glass-card::after {
+  /* Grain Effect */
+  /* Keep grain styles, maybe adjust opacity if needed */
+  opacity: 0.07;
+  /* ... other grain styles */
+}
+
+/* Input & Button Styling Adjustments */
+.input-group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  font-size: 0.95em;
-}
-
-.radio-group {
-  justify-content: flex-start; /* Align radio buttons left */
-  padding: 5px 0;
+  gap: 12px; /* Reduced gap */
+  margin-bottom: 15px; /* Reduced spacing */
+  flex-wrap: nowrap;
 }
 
 label {
-  font-weight: 400;
-  color: #d0d0d0; /* Slightly dimmer label */
-  flex-shrink: 0; /* Prevent labels from shrinking */
+  font-weight: 500;
+  color: #d8d8d8;
+  min-width: 90px; /* Reduced label width */
+  flex-shrink: 0;
+  font-size: 0.95em; /* Adjust label size */
+  text-align: right;
+  padding-right: 5px;
 }
 
 input[type="number"],
-input[type="radio"] {
-  font-family: inherit; /* Use the body font */
-}
-
-input[type="number"] {
-  padding: 8px 10px;
+input[type="text"],
+select {
+  padding: 8px 12px; /* Reduced padding */
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  background-color: rgba(0, 0, 0, 0.2);
-  color: #fff;
-  font-size: 0.95em;
-  width: 100px; /* Adjust width as needed */
-  text-align: right;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-  flex-grow: 1; /* Allow input to take remaining space */
-  max-width: 150px; /* Limit max width */
-}
-
-input[type="number"]:focus {
-  outline: none;
-  border-color: rgba(255, 255, 255, 0.5);
+  border-radius: 7px; /* Adjust radius */
   background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 0.95em; /* Adjust input size */
+  flex-grow: 1;
+  min-width: 80px;
+  transition: all 0.2s ease;
 }
 
-input[type="number"]::placeholder {
-  color: #aaa;
-  font-style: italic;
-}
-
-/* Style number input arrows (optional) */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+/* === HIDE NUMBER INPUT SPINNERS === */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }
+/* === END HIDE SPINNERS === */
 
-/* Radio Buttons */
-input[type="radio"] {
-  accent-color: #a880d8; /* Match theme */
-  margin-right: 8px;
-  cursor: pointer;
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+  /* Keep focus style */
 }
-
-label[for^="scope"] {
-  /* Target labels for radio buttons */
-  cursor: pointer;
-}
-
-/* Custom Token Input */
-.custom-input {
-  width: 120px; /* Specific width for custom input */
-  flex-grow: 0; /* Don't grow */
-  margin-left: auto; /* Push to the right */
-}
-
-.custom-input:disabled {
-  background-color: rgba(0, 0, 0, 0.1);
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-/* Output Section */
-.output-section {
-  text-align: center;
-}
-
-#estimatedTokensDisplay {
+input::placeholder {
   font-size: 0.9em;
-  color: #c0c0c0;
-  margin-bottom: 5px;
+  color: #999;
+} /* Adjust placeholder */
+
+/* Buttons */
+.btn {
+  padding: 8px 16px; /* Reduced padding */
+  border-radius: 7px;
+  font-weight: 500; /* Slightly lighter weight */
+  font-size: 0.9em; /* Reduced size */
+  /* Keep other button styles (gradient, shadow, transition) */
+}
+.btn:hover {
+  /* Keep hover */
+}
+.btn:active {
+  /* Keep active */
+}
+.btn-delete {
+  /* Keep delete style */
+}
+.btn-delete:hover {
+  /* Keep delete hover */
 }
 
-#estimatedCostDisplay {
-  font-size: 1.6em;
+/* === ICON BUTTON ('Manage Saved') === */
+.icon-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%; /* Make it circular */
+  width: 36px; /* Fixed width */
+  height: 36px; /* Fixed height */
+  padding: 0; /* Remove padding */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0; /* Prevent shrinking */
+  box-shadow: none; /* Remove default btn shadow */
+}
+.icon-btn svg {
+  width: 18px; /* Icon size */
+  height: 18px;
+  stroke: #d0d0d0; /* Icon color */
+  transition: stroke 0.2s ease;
+}
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px); /* Keep subtle lift */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+}
+.icon-btn:hover svg {
+  stroke: #fff; /* Brighter icon on hover */
+}
+/* === END ICON BUTTON === */
+
+/* Select Dropdown Specific */
+select {
+  /* Keep styles, adjust size/padding if needed */
+  background-size: 20px;
+  padding-right: 35px;
+}
+
+/* Status Message */
+.status-message {
+  font-size: 0.85em; /* Reduced size */
+}
+.status-message.error {
+  color: #ffa8a8;
+}
+
+/* === SLIDER IMPROVEMENTS === */
+.slider-container {
+  padding-bottom: 30px;
+  margin-top: 10px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px; /* Thinner track */
+  background: linear-gradient(
+    90deg,
+    rgba(168, 128, 216, 0.4) 0%,
+    rgba(168, 128, 216, 0.7) 100%
+  ); /* Gradient track */
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+/* Optional: Style the track background if gradient isn't enough */
+/* input[type="range"]::-webkit-slider-runnable-track { background: rgba(0, 0, 0, 0.2); border-radius: 3px; } */
+/* input[type="range"]::-moz-range-track { background: rgba(0, 0, 0, 0.2); border-radius: 3px; height: 6px; } */
+
+/* Slider Thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px; /* Slightly smaller thumb */
+  height: 16px;
+  background: #c3a3e8; /* Lighter purple thumb */
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  margin-top: -5px; /* Center thumb */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #c3a3e8;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.1); /* Slightly enlarge thumb when dragging */
+}
+input[type="range"]:active::-moz-range-thumb {
+  transform: scale(1.1);
+}
+
+/* Slider Labels */
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  left: 5px; /* Align with track padding */
+  right: 5px;
+  font-size: 0.8em; /* Reduced label size */
+  color: #aaa; /* Dimmer labels */
+  pointer-events: none; /* Prevent labels interfering with slider */
+}
+.slider-labels span {
+  display: inline-block;
+  text-align: center;
+  width: 25%; /* Equal spacing */
+  transform: translateX(-50%);
+  position: relative;
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+/* Align first/last labels */
+.slider-labels span:first-child {
+  transform: translateX(0);
+  text-align: left;
+}
+.slider-labels span:last-child {
+  transform: translateX(-100%);
+  text-align: right;
+}
+
+/* Style for the active label */
+.slider-labels span.active {
+  color: #fff; /* Highlight active label */
   font-weight: 600;
-  color: #fff;
-  padding: 5px 0;
+}
+/* Optional: Add tick marks below labels */
+.slider-labels span::before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  bottom: -8px; /* Position below text */
+  left: 50%;
+  transform: translateX(-50%);
+}
+.slider-labels span:first-child::before {
+  left: 0;
+  transform: none;
+} /* Align first tick */
+.slider-labels span:last-child::before {
+  left: auto;
+  right: 0;
+  transform: none;
+} /* Align last tick */
+
+/* Selected Scope Display */
+.selected-scope-display {
+  margin-top: 10px;
+  font-size: 0.95em;
+}
+#selectedScopeName {
+  font-weight: 600;
+}
+/* === END SLIDER IMPROVEMENTS === */
+
+/* Output Section Adjustments */
+#estimatedCostDisplay {
+  font-size: 1.8em; /* Reduced size */
+  font-weight: 700;
+}
+#estimatedTokensDisplay {
+  font-size: 0.9em; /* Reduced size */
+  color: #c0c0c0;
+}
+
+/* Modal Styles Adjustments */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: none;
+}
+.modal-content {
+  max-width: 440px; /* Adjust modal width if needed */
+  padding-top: 45px; /* Adjust for close button */
+}
+.modal-close {
+  top: 12px;
+  right: 18px;
+  font-size: 1.8em; /* Adjust close button */
+}
+.modal-body .input-group label {
+  min-width: 80px; /* Adjust modal label width */
+}
+.modal-body .btn {
+  font-size: 0.9em; /* Ensure modal buttons match */
+  padding: 8px 14px;
 }

@@ -4,87 +4,95 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LLM Cost Estimator</title>
-    <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="background-shapes"></div>
+
     <div class="calculator-container">
-      <h1>LLM Cost Estimator</h1>
+      <div class="header-bar">
+        <h1>LLM Cost Estimator</h1>
+        <button
+          id="manageButton"
+          class="icon-btn"
+          title="Manage Saved Calculations"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-settings"
+          >
+            <circle cx="12" cy="12" r="3"></circle>
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+            ></path>
+          </svg>
+        </button>
+      </div>
 
       <div class="input-section glass-card">
         <h2>Token Pricing ($ per Million)</h2>
         <div class="input-group">
-          <label for="inputCost">Input Tokens Cost:</label>
+          <label for="inputCost">Input Cost:</label>
           <input
             type="number"
             id="inputCost"
             step="0.01"
             min="0"
-            placeholder="e.g., 0.50"
+            placeholder="0.50"
           />
         </div>
         <div class="input-group">
-          <label for="outputCost">Output Tokens Cost:</label>
+          <label for="outputCost">Output Cost:</label>
           <input
             type="number"
             id="outputCost"
             step="0.01"
             min="0"
-            placeholder="e.g., 1.50"
+            placeholder="1.50"
           />
         </div>
       </div>
 
       <div class="project-size-section glass-card">
-        <h2>Estimated Project Scope</h2>
-        <div class="radio-group">
+        <h2>Project Scope</h2>
+        <div class="slider-container">
           <input
-            type="radio"
-            id="scopeQuick"
-            name="projectScope"
-            value="quick"
-            checked
+            type="range"
+            id="scopeSlider"
+            min="0"
+            max="3"
+            step="1"
+            value="0"
           />
-          <label for="scopeQuick">Quick Task</label>
+          <div class="slider-labels" id="sliderLabelsContainer"></div>
+          <div class="selected-scope-display">
+            Selected: <span id="selectedScopeName"></span>
+          </div>
         </div>
-        <div class="radio-group">
-          <input
-            type="radio"
-            id="scopeFeature"
-            name="projectScope"
-            value="feature"
-          />
-          <label for="scopeFeature">Feature Dev</label>
-        </div>
-        <div class="radio-group">
-          <input
-            type="radio"
-            id="scopeModule"
-            name="projectScope"
-            value="module"
-          />
-          <label for="scopeModule">Full Module</label>
-        </div>
-        <div class="radio-group">
-          <input
-            type="radio"
-            id="scopeCustom"
-            name="projectScope"
-            value="custom"
-          />
-          <label for="scopeCustom">Custom Total Tokens:</label>
+        <div
+          id="customScopeInputContainer"
+          class="input-group custom-scope-input"
+        >
+          <label for="customTokens">Custom Tokens:</label>
           <input
             type="number"
             id="customTokens"
             min="0"
-            placeholder="e.g., 1,000,000"
-            class="custom-input"
-            disabled
+            placeholder="1,000,000"
           />
         </div>
       </div>
@@ -93,6 +101,37 @@
         <h2>Estimated Cost</h2>
         <div id="estimatedTokensDisplay" class="cost-detail">Tokens: ---</div>
         <div id="estimatedCostDisplay" class="cost-total">$ ---.--</div>
+      </div>
+    </div>
+
+    <div id="manageModal" class="modal">
+      <div class="modal-content glass-card">
+        <button id="closeModalButton" class="modal-close">&times;</button>
+        <h2>Manage Calculations</h2>
+        <div class="modal-body">
+          <div class="input-group">
+            <label for="modalCalculationName">Name:</label>
+            <input
+              type="text"
+              id="modalCalculationName"
+              placeholder="Project Alpha - Draft 1"
+            />
+          </div>
+          <div class="input-group">
+            <label for="modalSavedCalculations">Load:</label>
+            <select id="modalSavedCalculations">
+              <option value="">-- Select Calculation --</option>
+            </select>
+          </div>
+          <div class="button-group modal-buttons">
+            <button id="modalSaveButton" class="btn">Save Current</button>
+            <button id="modalLoadButton" class="btn">Load Selected</button>
+            <button id="modalDeleteButton" class="btn btn-delete">
+              Delete Selected
+            </button>
+          </div>
+          <div id="modalStatusMessage" class="status-message"></div>
+        </div>
       </div>
     </div>
     <script src="script.js"></script>
