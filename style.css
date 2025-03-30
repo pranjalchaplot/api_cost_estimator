@@ -1,0 +1,159 @@
+/* Basic Reset & Font */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 100%
+  ); /* Example gradient */
+  color: #e0e0e0; /* Light text color for contrast */
+  width: 350px; /* Typical popup width */
+  padding: 15px;
+  overflow: hidden; /* Prevent scrollbars if content fits */
+}
+
+h1,
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 5px;
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1); /* Frosted glass effect */
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%); /* For Safari */
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Input Sections */
+.input-section,
+.project-size-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-group,
+.radio-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.95em;
+}
+
+.radio-group {
+  justify-content: flex-start; /* Align radio buttons left */
+  padding: 5px 0;
+}
+
+label {
+  font-weight: 400;
+  color: #d0d0d0; /* Slightly dimmer label */
+  flex-shrink: 0; /* Prevent labels from shrinking */
+}
+
+input[type="number"],
+input[type="radio"] {
+  font-family: inherit; /* Use the body font */
+}
+
+input[type="number"] {
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 0.95em;
+  width: 100px; /* Adjust width as needed */
+  text-align: right;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  flex-grow: 1; /* Allow input to take remaining space */
+  max-width: 150px; /* Limit max width */
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+input[type="number"]::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Style number input arrows (optional) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Radio Buttons */
+input[type="radio"] {
+  accent-color: #a880d8; /* Match theme */
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+label[for^="scope"] {
+  /* Target labels for radio buttons */
+  cursor: pointer;
+}
+
+/* Custom Token Input */
+.custom-input {
+  width: 120px; /* Specific width for custom input */
+  flex-grow: 0; /* Don't grow */
+  margin-left: auto; /* Push to the right */
+}
+
+.custom-input:disabled {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Output Section */
+.output-section {
+  text-align: center;
+}
+
+#estimatedTokensDisplay {
+  font-size: 0.9em;
+  color: #c0c0c0;
+  margin-bottom: 5px;
+}
+
+#estimatedCostDisplay {
+  font-size: 1.6em;
+  font-weight: 600;
+  color: #fff;
+  padding: 5px 0;
+}

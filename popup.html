@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LLM Cost Estimator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="calculator-container">
+      <h1>LLM Cost Estimator</h1>
+
+      <div class="input-section glass-card">
+        <h2>Token Pricing ($ per Million)</h2>
+        <div class="input-group">
+          <label for="inputCost">Input Tokens Cost:</label>
+          <input
+            type="number"
+            id="inputCost"
+            step="0.01"
+            min="0"
+            placeholder="e.g., 0.50"
+          />
+        </div>
+        <div class="input-group">
+          <label for="outputCost">Output Tokens Cost:</label>
+          <input
+            type="number"
+            id="outputCost"
+            step="0.01"
+            min="0"
+            placeholder="e.g., 1.50"
+          />
+        </div>
+      </div>
+
+      <div class="project-size-section glass-card">
+        <h2>Estimated Project Scope</h2>
+        <div class="radio-group">
+          <input
+            type="radio"
+            id="scopeQuick"
+            name="projectScope"
+            value="quick"
+            checked
+          />
+          <label for="scopeQuick">Quick Task</label>
+        </div>
+        <div class="radio-group">
+          <input
+            type="radio"
+            id="scopeFeature"
+            name="projectScope"
+            value="feature"
+          />
+          <label for="scopeFeature">Feature Dev</label>
+        </div>
+        <div class="radio-group">
+          <input
+            type="radio"
+            id="scopeModule"
+            name="projectScope"
+            value="module"
+          />
+          <label for="scopeModule">Full Module</label>
+        </div>
+        <div class="radio-group">
+          <input
+            type="radio"
+            id="scopeCustom"
+            name="projectScope"
+            value="custom"
+          />
+          <label for="scopeCustom">Custom Total Tokens:</label>
+          <input
+            type="number"
+            id="customTokens"
+            min="0"
+            placeholder="e.g., 1,000,000"
+            class="custom-input"
+            disabled
+          />
+        </div>
+      </div>
+
+      <div class="output-section glass-card">
+        <h2>Estimated Cost</h2>
+        <div id="estimatedTokensDisplay" class="cost-detail">Tokens: ---</div>
+        <div id="estimatedCostDisplay" class="cost-total">$ ---.--</div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
