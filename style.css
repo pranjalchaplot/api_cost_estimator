@@ -8,14 +8,72 @@
 /* Body Styling - Reduced Size, Base Font */
 body {
   width: 460px; /* Reduced width slightly */
-  padding: 20px; /* Adjusted padding */
-  font-family: "Inter", system-ui, sans-serif; /* Keep Inter */
+  padding: 20px;
+  padding-bottom: 0px; /* Adjusted padding */
+  font-family: "Inter", system-ui, sans-serif; /* Only Inter */
   font-size: 15px; /* DECREASED base font size */
   background-color: #050505;
   color: #e0e0e0; /* Slightly dimmer default text */
   position: relative;
   overflow: hidden;
   line-height: 1.55; /* Adjusted line height */
+}
+
+/* Background with flowing gradients */
+.background-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.background-shapes::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(128, 0, 255, 0.15) 0%,
+    rgba(128, 0, 255, 0) 70%
+  );
+  top: -100px;
+  left: -150px;
+  border-radius: 50%;
+  filter: blur(30px);
+  animation: float 15s infinite alternate ease-in-out;
+}
+
+.background-shapes::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(
+    circle,
+    rgba(0, 128, 255, 0.1) 0%,
+    rgba(0, 128, 255, 0) 70%
+  );
+  bottom: -100px;
+  right: -100px;
+  border-radius: 50%;
+  filter: blur(30px);
+  animation: float 18s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(30px, 20px);
+  }
+  100% {
+    transform: translate(-20px, 40px);
+  }
 }
 
 /* Main container */
@@ -37,19 +95,21 @@ h1 {
   font-family: "Inter", sans-serif;
   text-align: left;
   margin-bottom: 0;
-  font-size: 1.6em; /* Further reduced size */
+  font-size: 1.5em; /* Further reduced size */
   color: #fff;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
   flex-grow: 1;
+  font-weight: 600;
 }
 
 h2 {
   font-family: "Inter", sans-serif;
-  font-size: 1.1em; /* Further reduced size */
+  font-size: 1em; /* Further reduced size */
   margin-bottom: 15px; /* Reduced space */
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   color: #f0f0f0;
+  font-weight: 500;
 }
 
 label,
@@ -77,11 +137,29 @@ input,
   position: relative;
   overflow: hidden;
 }
+
+/* Add this if you still see scrollbars in some browsers */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: none;
+}
+
 .glass-card::after {
   /* Grain Effect */
-  /* Keep grain styles, maybe adjust opacity if needed */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   opacity: 0.07;
-  /* ... other grain styles */
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Input & Button Styling Adjustments */
@@ -125,13 +203,16 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
+  appearance: textfield;
 }
 /* === END HIDE SPINNERS === */
 
 input[type="number"]:focus,
 input[type="text"]:focus,
 select:focus {
-  /* Keep focus style */
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
 }
 input::placeholder {
   font-size: 0.9em;
@@ -144,19 +225,38 @@ input::placeholder {
   border-radius: 7px;
   font-weight: 500; /* Slightly lighter weight */
   font-size: 0.9em; /* Reduced size */
-  /* Keep other button styles (gradient, shadow, transition) */
+  background: linear-gradient(
+    135deg,
+    rgba(168, 128, 216, 0.8),
+    rgba(128, 0, 255, 0.7)
+  );
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 .btn:hover {
-  /* Keep hover */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
 .btn:active {
-  /* Keep active */
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 .btn-delete {
-  /* Keep delete style */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 128, 128, 0.8),
+    rgba(255, 0, 0, 0.7)
+  );
 }
 .btn-delete:hover {
-  /* Keep delete hover */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 128, 128, 0.9),
+    rgba(255, 0, 0, 0.8)
+  );
 }
 
 /* === ICON BUTTON ('Manage Saved') === */
@@ -194,7 +294,10 @@ input::placeholder {
 
 /* Select Dropdown Specific */
 select {
-  /* Keep styles, adjust size/padding if needed */
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
   background-size: 20px;
   padding-right: 35px;
 }
@@ -209,8 +312,9 @@ select {
 
 /* === SLIDER IMPROVEMENTS === */
 .slider-container {
-  padding-bottom: 30px;
+  /* padding-bottom: 10px; */
   margin-top: 10px;
+  position: relative;
 }
 
 input[type="range"] {
@@ -327,6 +431,14 @@ input[type="range"]:active::-moz-range-thumb {
 }
 /* === END SLIDER IMPROVEMENTS === */
 
+/* Custom Scope Input Container (hide by default) */
+#customScopeInputContainer {
+  display: none;
+}
+#customScopeInputContainer.visible {
+  display: flex;
+}
+
 /* Output Section Adjustments */
 #estimatedCostDisplay {
   font-size: 1.8em; /* Reduced size */
@@ -344,17 +456,31 @@ input[type="range"]:active::-moz-range-thumb {
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   display: none;
+  justify-content: center;
+  align-items: center;
 }
 .modal-content {
   max-width: 440px; /* Adjust modal width if needed */
+  width: 90%;
   padding-top: 45px; /* Adjust for close button */
+  position: relative;
 }
 .modal-close {
+  position: absolute;
   top: 12px;
   right: 18px;
   font-size: 1.8em; /* Adjust close button */
+  background: none;
+  border: none;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.modal-close:hover {
+  color: #fff;
 }
 .modal-body .input-group label {
   min-width: 80px; /* Adjust modal label width */
@@ -362,4 +488,20 @@ input[type="range"]:active::-moz-range-thumb {
 .modal-body .btn {
   font-size: 0.9em; /* Ensure modal buttons match */
   padding: 8px 14px;
+}
+
+/* Button Group for Modal */
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+.button-group .btn {
+  flex: 1;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Added to center the content horizontally */
+  gap: 5px; /* Add some space between the icon and text */
 }
